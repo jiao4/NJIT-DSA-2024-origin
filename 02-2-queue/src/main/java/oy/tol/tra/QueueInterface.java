@@ -13,6 +13,9 @@ public interface QueueInterface<E> {
     @return The number of elements the queue can currently hold.
     */
    public int capacity();
+
+
+   
    
    /**
     * Add an element to the queue.
@@ -21,6 +24,10 @@ public interface QueueInterface<E> {
     * @throws NullPointerException If the element is null.
     */
    public void enqueue(E element) throws QueueAllocationException, NullPointerException;
+
+
+
+
 
    /**
     * Removes an element from the queue.

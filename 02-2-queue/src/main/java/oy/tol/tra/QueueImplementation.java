@@ -3,13 +3,11 @@ package oy.tol.tra;
 public class QueueImplementation<E> implements QueueInterface<E> {
    private Object [] itemArray;
    private int capacity;
-   private int currentIndex = -1;
    private static final int DEFAULT_Queue_SIZE = 10;
-
    private int head = 0;
    private int tail = -1;
 //    private int size();
-   private int currentSize = 0;
+   private int SIZE = 0;
 
    public QueueImplementation() throws QueueAllocationException {
 
@@ -42,16 +40,19 @@ public class QueueImplementation<E> implements QueueInterface<E> {
 
  @Override
  public void enqueue(E element) throws QueueAllocationException, NullPointerException {
-    
+   if(element==null){
+      throw new NullPointerException("the element is null");
+   }
+    else{
     if(size() >= capacity  ){
        Object [] Newarray = new Object [this.capacity*10];
 
-       for (int i = 0; i < currentSize; i++) {
+       for (int i = 0; i < SIZE; i++) {
         Newarray[i] = itemArray[(head + i) % capacity];
       //   head = (head + i) % capacity;
       }
       head = 0;
-      tail = currentSize - 1;
+      tail = SIZE - 1;
       itemArray = Newarray;
       capacity = capacity * 10;
        
@@ -61,13 +62,10 @@ public class QueueImplementation<E> implements QueueInterface<E> {
     //     throw new QueueAllocationException("the reallocation is wrong");
     // }
 
-
-    if(element==null){
-       throw new NullPointerException("the element is null");
     }
     tail=(tail+1)%capacity;
     itemArray[tail]=element;
-    currentSize++; 
+    SIZE++; 
 
 
  }
@@ -76,8 +74,9 @@ public class QueueImplementation<E> implements QueueInterface<E> {
  @Override
  public E dequeue() throws QueueIsEmptyException {
     E OUT = element(); 
+    itemArray[head] = null;
     head = (head + 1) % capacity; 
-    currentSize--; 
+    SIZE--; 
     return OUT; 
 
  }
@@ -97,7 +96,7 @@ public class QueueImplementation<E> implements QueueInterface<E> {
  @Override
  public int size() {
 
-    return currentSize;
+    return SIZE;
     
  }
 
@@ -108,7 +107,7 @@ public class QueueImplementation<E> implements QueueInterface<E> {
 
     head=0;
     tail=-1;
-    currentSize=0;
+    SIZE=0;
  }
 
 
@@ -116,7 +115,7 @@ public class QueueImplementation<E> implements QueueInterface<E> {
  @Override
  public boolean isEmpty() {
 
-    return currentSize == 0;
+    return SIZE == 0;
  }
 
 
@@ -138,9 +137,9 @@ public String toString() {
     StringBuilder builder = new StringBuilder("[");
     int index = head; 
     int count = 0;
-    while (count < currentSize) { 
+    while (count < SIZE) { 
         builder.append(itemArray[index].toString());
-        if (count < currentSize - 1) { 
+        if (count < SIZE - 1) { 
             builder.append(", ");
         }
         index = (index + 1) % capacity; 

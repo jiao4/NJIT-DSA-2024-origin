@@ -82,6 +82,7 @@ public class StackImplementation<E> implements StackInterface<E> {
       }
 
       E element = (E) itemArray[currentIndex];
+      itemArray [currentIndex] = null;
       currentIndex--;
       return element;
    }

@@ -51,6 +51,10 @@ public class StackImplementation<E> implements StackInterface<E> {
    @Override
    public void push(E element) throws StackAllocationException, NullPointerException {
       // TODO: Implement this
+      if(element==null){
+         throw new NullPointerException("the element is null");
+      }
+      else{
       if(size() >= capacity  ){
          Object [] Newarray = new Object [this.capacity*10];
          for(int i = 0 ;i < itemArray.length ;i++){
@@ -61,10 +65,11 @@ public class StackImplementation<E> implements StackInterface<E> {
          Newarray = null;
          capacity = capacity*10;
       }
+   }
 
-      if(element==null){
-         throw new NullPointerException("the element is null");
-      }
+      // if(element==null){
+      //    throw new NullPointerException("the element is null");
+      // }
       itemArray[++currentIndex]=element;
    }
 
@@ -75,7 +80,11 @@ public class StackImplementation<E> implements StackInterface<E> {
          throw new StackIsEmptyException("the stack is empty");
 
       }
-      return (E)itemArray[currentIndex--];
+
+      E element = (E) itemArray[currentIndex];
+      itemArray [currentIndex] = null;
+      currentIndex--;
+      return element;
    }
 
    @SuppressWarnings("unchecked")

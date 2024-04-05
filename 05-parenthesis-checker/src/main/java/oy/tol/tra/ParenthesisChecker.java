@@ -83,8 +83,8 @@ public class ParenthesisChecker {
       // if the stack is not empty after all the characters have been handled
       // throw an exception since the string has more opening than closing
       // parentheses.
-      int openingCount = 0;
-      int closingCount = 0;
+      int leftcount = 0;
+      int rightcount = 0;
 
       for (char c : fromString.toCharArray()) {
          if (c == '(' || c == '[' || c == '{') {
@@ -92,9 +92,9 @@ public class ParenthesisChecker {
                throw new ParenthesesException("The stack is empty.", ParenthesesException.STACK_FAILURE);
             }
             stack.push(c);
-            openingCount++;
+            leftcount++;
          } else if (c == ')' || c == ']' || c == '}') {
-            closingCount++;
+            rightcount++;
             if (stack.isEmpty()) {
                throw new ParenthesesException("There are TOO MANY CLOSING PARENTHESES.",
                      ParenthesesException.TOO_MANY_CLOSING_PARENTHESES);
@@ -109,12 +109,12 @@ public class ParenthesisChecker {
          }
       }
 
-      if (openingCount != closingCount) {
+      if (leftcount != rightcount) {
          throw new ParenthesesException("The opening parentheses are not equal to the closing parentheses.",
                ParenthesesException.STACK_FAILURE);
 
       }
 
-      return openingCount + closingCount;
+      return leftcount + rightcount;
    }
 }

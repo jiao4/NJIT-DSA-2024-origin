@@ -38,16 +38,16 @@ public class StackFactory {
     */
    public static StackInterface<Character> createCharacterStack() {
 
-      return stack;
+      return new StackImplementation<>();
    }
 
    /**
-    * Instantiates a stack of Characters using the stack default constructor.
+    * Instantiates a stack of Characters using the stack default construtor.
     * TODO: Students, implement this method in this task.
     * @return The stack implementation holding Characters.
     */
     public static StackInterface<Character> createCharacterStack(int capacity) {
 
-      return stack;
+      return new StackImplementation<>(capacity);
    }
 }
